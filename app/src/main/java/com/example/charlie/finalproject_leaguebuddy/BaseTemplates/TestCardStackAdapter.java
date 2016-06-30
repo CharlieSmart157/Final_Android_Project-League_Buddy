@@ -14,9 +14,9 @@ import com.loopeer.cardstack.StackAdapter;
 /**
  * Created by Charlie on 28/06/2016.
  */
-public class TestStackAdapter extends StackAdapter<Integer> {
+public class TestCardStackAdapter extends StackAdapter<Integer> {
 
-    public TestStackAdapter(Context context) {
+    public TestCardStackAdapter(Context context) {
         super(context);
     }
 

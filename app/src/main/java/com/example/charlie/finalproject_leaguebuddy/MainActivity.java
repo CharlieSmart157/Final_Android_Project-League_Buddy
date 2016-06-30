@@ -1,43 +1,42 @@
 package com.example.charlie.finalproject_leaguebuddy;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.loopeer.cardstack.CardStackView;
-import com.loopeer.cardstack.StackAdapter;
+import com.example.charlie.finalproject_leaguebuddy.Content.Content_Contract;
+import com.example.charlie.finalproject_leaguebuddy.Content.Content_Presenter;
+import com.example.charlie.finalproject_leaguebuddy.HomePage.HomeFragment;
+import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Content_Contract.View {
 
-CardStackView mStackView;
-StackAdapter mTestStackAdapter;
-ArrayList<String> TEST_DATAS;
+
+    Fragment fragment;
+    int userID;
+    Content_Presenter mPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        TEST_DATAS =new ArrayList<String>();
-        TEST_DATAS.add(new String ("Hello"));
-        TEST_DATAS.add(new String ("World"));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mStackView = (CardStackView) findViewById(R.id.stackview_main);
-        mStackView.setAdapter(mTestStackAdapter);
-        mTestStackAdapter.updateData(Arrays.asList(TEST_DATAS));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +55,9 @@ ArrayList<String> TEST_DATAS;
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        SelectItem(0,userID);
+
     }
 
     @Override
@@ -88,6 +90,7 @@ ArrayList<String> TEST_DATAS;
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -113,5 +116,43 @@ ArrayList<String> TEST_DATAS;
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void SelectItem(int position, int id){
+
+
+        Bundle args = new Bundle();
+        //Insert Switch Statement here
+        switch(position){
+            case 0:
+                Log.i("Case",""+position);
+                fragment = new HomeFragment();
+                args.putInt("id", id);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                    this.invalidateOptionsMenu();
+                }
+                break;
+
+        }
+        fragment.setArguments(args);
+        android.support.v4.app.FragmentManager frgManager = getSupportFragmentManager();
+        frgManager.beginTransaction().replace(R.id.fragment_layout_holder, fragment).commit();
+
+
+    }
+
+    @Override
+    public void setmAdapter(ArrayList<SummonerModel> L) {
+
+    }
+
+    @Override
+    public void displaySnackbar() {
+
+    }
+
+    @Override
+    public void setPresenter(Content_Contract.Presenter presenter) {
+
     }
 }
