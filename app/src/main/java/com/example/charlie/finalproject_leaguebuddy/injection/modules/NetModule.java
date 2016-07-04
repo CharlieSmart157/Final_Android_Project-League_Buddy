@@ -66,9 +66,12 @@ public class NetModule {
     @Singleton
     RestAdapter provideRetrofit(OkHttpClient okhttp) {
         Log.i("Retrofit", "provideRetrofit");
+        //String encodedText = TextUtils.htmlEncode(mInput.getText().toString().replaceAll("\\s", "").toLowerCase());
+      //  Gson gson = new GsonBuilder().registerTypeAdapterFactory(new ItemTypeAdapterFactory(encodedText)).create();
 
         RestAdapter retrofit = new RestAdapter.Builder()
-                //.addConverterFactory(GsonConverterFactory.create(gson))
+               // .addConverterFactory(GsonConverterFactory.create(gson))
+                //.setConverter(new GsonConverter(gson))
                 .setEndpoint(mBaseUrl)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setClient(new OkClient(okhttp))

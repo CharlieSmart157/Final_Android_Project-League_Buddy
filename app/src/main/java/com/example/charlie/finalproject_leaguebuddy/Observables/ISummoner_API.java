@@ -4,7 +4,7 @@ import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 import com.example.charlie.finalproject_leaguebuddy.Utility.Constants;
 
 import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit.http.Path;
 import rx.Observable;
 
 /**
@@ -12,7 +12,9 @@ import rx.Observable;
  */
 public interface ISummoner_API {
 
-    @GET(Constants.SUMMONER_URL)
-    Observable<SummonerModel> getSummoners(@Query("summonerName")String summoner_ID );
+    @GET(Constants.SUMMONER_BY_NAME_URL + Constants.API_KEY)
+    Observable<SummonerModel> getSummonerByName(@Path("summonerName")String summoner_ID );
+    @GET(Constants.SUMMONER_URL_BY_ID_URL + Constants.API_KEY)
+    Observable<SummonerModel> getSummonerById(@Path("summonerIds")String summoner_ID );
 
 }

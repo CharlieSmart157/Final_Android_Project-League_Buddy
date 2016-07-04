@@ -5,5 +5,5 @@ package com.example.charlie.finalproject_leaguebuddy.BaseTemplates;
  */
 public interface BasePresenter {
 
-    void start();
+
 }

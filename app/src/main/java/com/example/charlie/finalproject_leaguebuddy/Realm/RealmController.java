@@ -73,9 +73,15 @@ public class RealmController {
     }
 
     //find all objects in the Result.class
-    public RealmResults<RealmSummoner> getSongs() {
+    public RealmResults<RealmSummoner> getSummoners() {
 
         return realm.where(RealmSummoner.class).findAll();
+    }
+
+    //query a single item with the given id
+    public RealmSummoner getSummonerByName(String id) {
+
+        return realm.where(RealmSummoner.class).equalTo("name",id).findFirst();
     }
 
     //query a single item with the given id
@@ -95,7 +101,7 @@ public class RealmController {
         ArrayList<SummonerModel> n = new ArrayList<SummonerModel>();
         ArrayList<RealmSummoner>r = new ArrayList<RealmSummoner>();
 
-        r.addAll(getSongs());
+        r.addAll(getSummoners());
         for(int i=0;i<r.size();i++){
             SummonerModel a = new SummonerModel(r.get(i));
             n.add(a);
@@ -108,7 +114,7 @@ public class RealmController {
         for(int i=0; i < L.size();i++){
             RealmSummoner RResult = new RealmSummoner(L.get(i));
             if(RealmController.getInstance().getSummoner(RResult.getId())==null)
-                RResult.setId(RealmController.getInstance().getSongs().size());
+                RResult.setId(RealmController.getInstance().getSummoners().size());
 
                 realm.beginTransaction();
                 realm.copyToRealmOrUpdate(RResult);
@@ -121,7 +127,7 @@ public class RealmController {
     public void addSummoner(SummonerModel S){
 
         RealmSummoner RSummoner = new RealmSummoner(S);
-        realm.beginTransaction();;
+        realm.beginTransaction();
         realm.copyToRealmOrUpdate(RSummoner);
         realm.commitTransaction();
     }

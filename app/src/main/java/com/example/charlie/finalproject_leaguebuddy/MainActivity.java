@@ -1,5 +1,7 @@
 package com.example.charlie.finalproject_leaguebuddy;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,7 @@ import com.example.charlie.finalproject_leaguebuddy.Content.Content_Contract;
 import com.example.charlie.finalproject_leaguebuddy.Content.Content_Presenter;
 import com.example.charlie.finalproject_leaguebuddy.HomePage.HomeFragment;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
+import com.example.charlie.finalproject_leaguebuddy.Realm.RealmController;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Fragment fragment;
     int userID;
     Content_Presenter mPresenter;
+    SharedPreferences sharedpreferences ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,7 +42,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mPresenter = new Content_Presenter(this);
 
+        //Preferences: Default User
+        sharedpreferences  = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        if(sharedpreferences.getInt("DefaultID", 0) == 0)
+        {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt("DefaultID",24102751);
+        editor.commit();
+        }
+
+        userID = sharedpreferences.getInt("DefaultID", 0);
+        RealmController.with(this);
+
+
+
+        //UI
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        SelectItem(0,userID);
+        SelectItem(0);
 
     }
 
@@ -102,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            RealmController.getInstance().clearAll();
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -118,23 +140,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    public void SelectItem(int position, int id){
-
+    public void SelectItem(int position){
 
         Bundle args = new Bundle();
+
         //Insert Switch Statement here
         switch(position){
             case 0:
                 Log.i("Case",""+position);
                 fragment = new HomeFragment();
-                args.putInt("id", id);
+                //args.putInt();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
                     this.invalidateOptionsMenu();
                 }
                 break;
 
         }
-        fragment.setArguments(args);
+
         android.support.v4.app.FragmentManager frgManager = getSupportFragmentManager();
         frgManager.beginTransaction().replace(R.id.fragment_layout_holder, fragment).commit();
 
@@ -148,6 +170,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void displaySnackbar() {
+
+    }
+
+    @Override
+    public int getUserID() {
+        return userID;
+    }
+
+    @Override
+    public void setSummoner(SummonerModel s) {
 
     }
 

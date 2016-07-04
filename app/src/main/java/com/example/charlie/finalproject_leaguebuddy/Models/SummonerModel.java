@@ -15,19 +15,19 @@ public class SummonerModel {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("profileIconId")
     @Expose
-    private Integer profileIconId;
+    private int profileIconId;
     @SerializedName("summonerLevel")
     @Expose
-    private Integer summonerLevel;
+    private int summonerLevel;
     @SerializedName("revisionDate")
     @Expose
-    private Integer revisionDate;
+    private int revisionDate;
 
 
     public SummonerModel(RealmSummoner s){
@@ -43,7 +43,7 @@ public class SummonerModel {
      * @return
      * The id
      */
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -52,7 +52,7 @@ public class SummonerModel {
      * @param id
      * The id
      */
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -79,7 +79,7 @@ public class SummonerModel {
      * @return
      * The profileIconId
      */
-    public Integer getProfileIconId() {
+    public int getProfileIconId() {
         return profileIconId;
     }
 
@@ -88,7 +88,7 @@ public class SummonerModel {
      * @param profileIconId
      * The profileIconId
      */
-    public void setProfileIconId(Integer profileIconId) {
+    public void setProfileIconId(int profileIconId) {
         this.profileIconId = profileIconId;
     }
 
@@ -97,7 +97,7 @@ public class SummonerModel {
      * @return
      * The summonerLevel
      */
-    public Integer getSummonerLevel() {
+    public int getSummonerLevel() {
         return summonerLevel;
     }
 
@@ -106,7 +106,7 @@ public class SummonerModel {
      * @param summonerLevel
      * The summonerLevel
      */
-    public void setSummonerLevel(Integer summonerLevel) {
+    public void setSummonerLevel(int summonerLevel) {
         this.summonerLevel = summonerLevel;
     }
 
@@ -115,7 +115,7 @@ public class SummonerModel {
      * @return
      * The revisionDate
      */
-    public Integer getRevisionDate() {
+    public int getRevisionDate() {
         return revisionDate;
     }
 
@@ -124,7 +124,7 @@ public class SummonerModel {
      * @param revisionDate
      * The revisionDate
      */
-    public void setRevisionDate(Integer revisionDate) {
+    public void setRevisionDate(int revisionDate) {
         this.revisionDate = revisionDate;
     }
 

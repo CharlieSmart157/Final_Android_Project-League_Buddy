@@ -1,7 +1,10 @@
 package com.example.charlie.finalproject_leaguebuddy.HomePage;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,14 @@ public class HomeFragment extends BaseFragment {
 
     View view;
     Fragment fragment;
-
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.homepage_layout, container, false);
+        sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        Log.d("sharedprefUserID", ""+sharedPreferences.getInt("DefaultID", 0));
         initializeProfileView((FrameLayout)view.findViewById(R.id.profile_holder));
 
         return view;
@@ -33,7 +38,7 @@ public class HomeFragment extends BaseFragment {
 
     public void initializeProfileView(View v){
         Bundle args = new Bundle();
-        args.putInt("id", getArguments().getInt("id"));
+        args.putInt("id", sharedPreferences.getInt("DefaultID", 0));
         fragment = new ProfileFragment();
         fragment.setArguments(args);
         android.support.v4.app.FragmentManager frgManager = getActivity().getSupportFragmentManager();

@@ -15,11 +15,16 @@ public interface Content_Contract {
     interface View extends BaseView<Presenter> {
     void setmAdapter(ArrayList<SummonerModel> L);
     void displaySnackbar();
+    int getUserID();
+    void setSummoner(SummonerModel s);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void returnSummoner(String s);
+        void returnSummonerByName(String s);
+        void returnSummonerById(int i);
+        boolean doesUserExist(int i);
+        boolean doesUserNameExist(String s);
     }
 }
