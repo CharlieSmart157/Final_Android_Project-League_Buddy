@@ -5,13 +5,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.charlie.finalproject_leaguebuddy.BaseTemplates.BaseFragment;
 import com.example.charlie.finalproject_leaguebuddy.Content.Content_Contract;
 import com.example.charlie.finalproject_leaguebuddy.Content.Content_Presenter;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 import com.example.charlie.finalproject_leaguebuddy.R;
+import com.example.charlie.finalproject_leaguebuddy.Realm.RealmSummoner;
+import com.example.charlie.finalproject_leaguebuddy.Utility.Constants;
 
 import java.util.ArrayList;
 
@@ -21,7 +25,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends BaseFragment implements Content_Contract.View{
 
     View view;
-    SummonerModel summoner;
+    RealmSummoner summoner;
     Content_Presenter mPresenter;
 
     @Override
@@ -32,7 +36,6 @@ public class ProfileFragment extends BaseFragment implements Content_Contract.Vi
         Log.d("UserID",""+getArguments().getInt("id"));
         if(getArguments().getInt("id") !=0) {
             mPresenter.returnSummonerById(getArguments().getInt("id"));
-
         }
         return view;
     }
@@ -53,11 +56,21 @@ public class ProfileFragment extends BaseFragment implements Content_Contract.Vi
     }
 
     @Override
-    public void setSummoner(SummonerModel s) {
-        summoner = s;
+    public void setSummoner(RealmSummoner s) {
+         summoner = s;
          TextView text = (TextView) view.findViewById(R.id.Name_Text);
-          text.setText(summoner.getName());
-        Log.d("NAME",summoner.getName());
+         text.setText(summoner.getName());
+         ImageView img = (ImageView) view.findViewById(R.id.profileImage);
+         TextView text2 =(TextView) view.findViewById(R.id.RankText);
+         text2.setText(summoner.getRankTier()+" "+summoner.getRankedLeague().getDivision());
+
+        Glide.with(this)
+                .load(Constants.DDRAGON_IMG_URL + summoner.getProfileIconId()+".png")
+                .dontTransform()
+                .into(img);
+
+         Log.d("NAME",summoner.getName());
+         Log.d("IMG", Constants.DDRAGON_IMG_URL + summoner.getProfileIconId()+".png");
     }
 
     @Override

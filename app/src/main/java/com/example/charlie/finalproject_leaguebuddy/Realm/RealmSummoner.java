@@ -1,5 +1,6 @@
 package com.example.charlie.finalproject_leaguebuddy.Realm;
 
+import com.example.charlie.finalproject_leaguebuddy.Models.Entry;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -28,6 +29,9 @@ public class RealmSummoner extends RealmObject {
     @Expose
     private int revisionDate;
 
+    private Entry rankedLeague;
+
+    private String rankTier;
 
     public RealmSummoner(){}
 
@@ -129,4 +133,11 @@ public class RealmSummoner extends RealmObject {
         this.revisionDate = revisionDate;
     }
 
+    public void setRankedLeague(Entry e){this.rankedLeague = e;}
+
+    public Entry getRankedLeague(){return rankedLeague;}
+
+    public void setRankTier(String tier){this.rankTier = tier;}
+
+    public String getRankTier(){return rankTier;}
 }

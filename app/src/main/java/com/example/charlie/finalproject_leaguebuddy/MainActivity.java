@@ -23,6 +23,7 @@ import com.example.charlie.finalproject_leaguebuddy.Content.Content_Presenter;
 import com.example.charlie.finalproject_leaguebuddy.HomePage.HomeFragment;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 import com.example.charlie.finalproject_leaguebuddy.Realm.RealmController;
+import com.example.charlie.finalproject_leaguebuddy.Realm.RealmSummoner;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(sharedpreferences.getInt("DefaultID", 0) == 0)
         {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putInt("DefaultID",24102751);
+        editor.putInt("DefaultID",25487967);
         editor.commit();
         }
 
@@ -83,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+        Log.d("BACK_PRESSED"," ");
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -119,11 +121,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Log.d("NAV_ID", id+"");
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
             RealmController.getInstance().clearAll();
+            sharedpreferences  = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            //editor.putInt("DefaultID",25487967);
+            editor.commit();
+            Log.d("RESET", "DONE");
+
 
         } else if (id == R.id.nav_slideshow) {
 
@@ -179,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void setSummoner(SummonerModel s) {
+    public void setSummoner(RealmSummoner s) {
 
     }
 

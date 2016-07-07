@@ -1,8 +1,11 @@
 package com.example.charlie.finalproject_leaguebuddy.Observables;
 
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
+import com.example.charlie.finalproject_leaguebuddy.Models.SummonerRankedLeague;
 import com.example.charlie.finalproject_leaguebuddy.Utility.Constants;
+import com.google.gson.JsonObject;
 
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import rx.Observable;
@@ -16,5 +19,9 @@ public interface ISummoner_API {
     Observable<SummonerModel> getSummonerByName(@Path("summonerName")String summoner_ID );
     @GET(Constants.SUMMONER_URL_BY_ID_URL + Constants.API_KEY)
     Observable<SummonerModel> getSummonerById(@Path("summonerIds")String summoner_ID );
+    @GET(Constants.SUMMONER_RANKED_LEAGUE_URL + Constants.API_KEY)
+    Observable<SummonerRankedLeague> getSummonerRankedLeague(@Path("summonerIds")String summoner_ID );
+    @GET(Constants.SUMMONER_RANKED_LEAGUE_URL + Constants.API_KEY)
+    public void getWhateverAction(@Path("summonerIds") String summoner_ID, Callback<JsonObject> response);
 
 }

@@ -4,6 +4,7 @@ package com.example.charlie.finalproject_leaguebuddy.Content;
 import com.example.charlie.finalproject_leaguebuddy.BaseTemplates.BasePresenter;
 import com.example.charlie.finalproject_leaguebuddy.BaseTemplates.BaseView;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
+import com.example.charlie.finalproject_leaguebuddy.Realm.RealmSummoner;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public interface Content_Contract {
     void setmAdapter(ArrayList<SummonerModel> L);
     void displaySnackbar();
     int getUserID();
-    void setSummoner(SummonerModel s);
+    void setSummoner(RealmSummoner s);
 
     }
 

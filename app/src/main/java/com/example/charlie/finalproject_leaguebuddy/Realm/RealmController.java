@@ -78,6 +78,7 @@ public class RealmController {
         return realm.where(RealmSummoner.class).findAll();
     }
 
+
     //query a single item with the given id
     public RealmSummoner getSummonerByName(String id) {
 
@@ -129,6 +130,14 @@ public class RealmController {
         RealmSummoner RSummoner = new RealmSummoner(S);
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(RSummoner);
+        realm.commitTransaction();
+    }
+
+    public void addOrUpdateSummoner(RealmSummoner S){
+
+
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(S);
         realm.commitTransaction();
     }
 
