@@ -33,6 +33,8 @@ public class RealmSummoner extends RealmObject {
 
     private String rankTier;
 
+    private boolean WatchList = false;
+
     public RealmSummoner(){}
 
     public RealmSummoner(SummonerModel s){
@@ -42,6 +44,18 @@ public class RealmSummoner extends RealmObject {
         setProfileIconId(s.getProfileIconId());
         setRevisionDate(s.getRevisionDate());
         setSummonerLevel(s.getSummonerLevel());
+    }
+
+    public RealmSummoner(RealmSummoner s){
+
+        setId(s.getId());
+        setName(s.getName());
+        setProfileIconId(s.getProfileIconId());
+        setRevisionDate(s.getRevisionDate());
+        setSummonerLevel(s.getSummonerLevel());
+        setRankTier(s.getRankTier());
+        setRankedLeague(s.getRankedLeague());
+
     }
     /**
      *
@@ -140,4 +154,8 @@ public class RealmSummoner extends RealmObject {
     public void setRankTier(String tier){this.rankTier = tier;}
 
     public String getRankTier(){return rankTier;}
+
+    public void setWatchList(boolean b){WatchList = b;}
+
+    public boolean getWatchList(){return WatchList;}
 }

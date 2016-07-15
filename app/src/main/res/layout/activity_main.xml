@@ -13,12 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/fragment_layout_holder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
+   <include layout="@layout/content_main"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"

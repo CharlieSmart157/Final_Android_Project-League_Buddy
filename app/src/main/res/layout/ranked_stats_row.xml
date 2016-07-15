@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:measureWithLargestChild="false"
+        android:padding="0dp"
+        android:baselineAligned="false">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/champ_icon"></FrameLayout>
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/champ_name" />
+
+    <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Wins"
+            android:id="@+id/NoOfWins"
+            android:layout_gravity="center_vertical"
+            android:elegantTextHeight="false"
+            android:layout_weight="0.25"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Losses"
+            android:id="@+id/NoOfLosses"
+            android:layout_gravity="center_vertical"
+            android:elegantTextHeight="false"
+            android:layout_weight="0.25"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Games Played"
+            android:id="@+id/TotalGames"
+            android:layout_gravity="center_vertical"
+            android:elegantTextHeight="false"
+            android:layout_weight="0.25"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Avg. Kills"
+            android:id="@+id/Avg_Kills"
+            android:layout_gravity="center_vertical"
+            android:elegantTextHeight="false"
+            android:layout_weight="0.25"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Avg. Deaths"
+            android:id="@+id/Avg_Deaths"
+            android:layout_gravity="center_vertical"
+            android:elegantTextHeight="false"
+            android:layout_weight="0.25"
+            android:textAlignment="center" />
+
+    </TableRow>

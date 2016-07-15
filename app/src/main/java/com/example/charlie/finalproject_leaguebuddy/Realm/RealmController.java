@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.support.v4.app.Fragment;
 
+import com.example.charlie.finalproject_leaguebuddy.Models.RankedStatsModel;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
 
 import java.util.ArrayList;
@@ -60,15 +61,15 @@ public class RealmController {
     }
 
     //Refresh the realm instance
-    public void refresh() {
+   // public void refresh() {
 
-        realm.refresh();
-    }
+    //    realm.
+   // }
 
     //clear all objects from Book.class
     public void clearAll() {
         realm.beginTransaction();
-        realm.clear(RealmSummoner.class);
+        realm.deleteAll();
         realm.commitTransaction();
     }
 
@@ -76,6 +77,18 @@ public class RealmController {
     public RealmResults<RealmSummoner> getSummoners() {
 
         return realm.where(RealmSummoner.class).findAll();
+    }
+
+    //find all objects in the Result.class
+    public ArrayList<Integer> getSummonerIDs() {
+        List<RealmSummoner> RSList= new ArrayList<RealmSummoner>();
+        ArrayList<Integer>intList = new ArrayList<Integer>();
+        RSList.addAll(realm.where(RealmSummoner.class).equalTo("WatchList",true).findAll());
+        for(int i =0; i<RSList.size();i++){
+            intList.add(RSList.get(i).getId());
+        }
+        return intList;
+
     }
 
 
@@ -91,10 +104,16 @@ public class RealmController {
         return realm.where(RealmSummoner.class).equalTo("id",id).findFirst();
     }
 
-    //check if Book.class is empty
+    public RankedStatsModel getRankedData(int id) {
+
+        return realm.where(RankedStatsModel.class).equalTo("summonerId",id).findFirst();
+    }
+
+    //check if RealmSummoner.class is empty
     public boolean hasResults() {
 
-        return !realm.allObjects(RealmSummoner.class).isEmpty();
+        //return !realm.where(RealmSummoner.class).isNotEmpty();
+        return true;
     }
 
 
@@ -151,4 +170,11 @@ public class RealmController {
                 .findAll();
 
     }
+
+    public void addRankedStats(RankedStatsModel s){
+        realm.beginTransaction();
+        realm.copyToRealmOrUpdate(s);
+        realm.commitTransaction();
+    }
+
 }

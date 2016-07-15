@@ -62,7 +62,11 @@ public class ItemTypeAdapterFactory implements TypeAdapterFactory {
 
 
                     }
+
+
                 }
+
+
 
                 Log.d("Debugerino", delegate.fromJsonTree(jsonElement)+"" );
                 return delegate.fromJsonTree(jsonElement);
