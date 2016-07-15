@@ -2,6 +2,7 @@ package com.example.charlie.finalproject_leaguebuddy.Utility;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.example.charlie.finalproject_leaguebuddy.injection.components.APIComponents;
 import com.example.charlie.finalproject_leaguebuddy.injection.components.DaggerAPIComponents;
 import com.example.charlie.finalproject_leaguebuddy.injection.components.DaggerNetComponent;
@@ -32,7 +33,7 @@ public class myApp extends Application {
     public void onCreate() {
         super.onCreate();
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+        Fabric.with(this, new Twitter(authConfig), new Crashlytics());
         mNetComponent= DaggerNetComponent.builder()
                 .netModule(new NetModule(Constants.BASE_URL))
                 .appModule(new AppModule(this))
