@@ -43,7 +43,7 @@ public class UserAddFragment extends android.support.v4.app.DialogFragment imple
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         mPresenter = new Content_Presenter(this);
-        view = inflater.inflate(R.layout.default_user_set, container, false);
+        view = inflater.inflate(R.layout.user_add, container, false);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         Log.d("sharedprefUserID", ""+sharedPreferences.getInt("DefaultID", 0));
         userEditText = (TextView)view.findViewById(R.id.user_field);
