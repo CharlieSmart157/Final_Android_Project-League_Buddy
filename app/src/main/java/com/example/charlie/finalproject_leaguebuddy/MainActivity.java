@@ -76,11 +76,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Preferences: Default User
 
         sharedpreferences  = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-       if(sharedpreferences.getInt("DefaultID", 0) > 0) {
-            SelectItem(0);
-        }
-        else
+
+        if(sharedpreferences.getInt("DefaultID",0)==0)
             SelectItem(1);
+        else
+            SelectItem(0);
+
+
     }
 
     @Override
@@ -183,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("Case", ""+position);
                 getSupportActionBar().setTitle("View Profile");
                 fragment = new ProfilePageFragment();
+                fragment.setRetainInstance(true);
                 args.putInt("id", selectedId);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
                     this.invalidateOptionsMenu();

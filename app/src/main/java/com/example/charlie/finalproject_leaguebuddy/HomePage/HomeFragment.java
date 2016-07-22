@@ -74,4 +74,5 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         local = true;
         mSwipeRefresher.setRefreshing(false);
     }
+
 }

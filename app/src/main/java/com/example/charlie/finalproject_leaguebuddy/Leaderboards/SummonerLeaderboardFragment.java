@@ -169,6 +169,7 @@ Log.d("RANKEDCHECK", rankedStats.getSummonerId()+"");
         progress.dismiss();
  }
 
+
     @Override
     public void setPresenter(Content_Contract.Presenter presenter) {
 

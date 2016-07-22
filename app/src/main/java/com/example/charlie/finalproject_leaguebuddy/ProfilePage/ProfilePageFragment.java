@@ -35,8 +35,10 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
     SwipeRefreshLayout mSwipeRefresher;
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 
         view = inflater.inflate(R.layout.profilepage_layout, container, false);
         sharedPreferences = getActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -45,6 +47,7 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
         initializeProfileView();
         initializeSummonerMastery();
         initializeSummonerRankStats();
+        setRetainInstance(true);
         return view;
     }
 
@@ -69,6 +72,7 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
 
         fragment = new SummonerTopMasteryFragment();
         fragment.setArguments(args);
+        fragment.setRetainInstance(true);
         frgManager.beginTransaction().replace(R.id.mastery_holder, fragment).commit();
 
     }
@@ -81,6 +85,7 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
 
         fragment = new ranked_stats_fragment();
         fragment.setArguments(args);
+        fragment.setRetainInstance(true);
         frgManager.beginTransaction().replace(R.id.stats_holder, fragment).commit();
 
 
@@ -125,11 +130,12 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
 
     @Override
     public void onRefresh() {
+        local = false;
         mSwipeRefresher.setRefreshing(false);
         initializeProfileView();
-        initializeSummonerMastery();
-        initializeSummonerRankStats();
-
+        //initializeSummonerMastery();
+        //initializeSummonerRankStats();
+        local = true;
 
     }
 }

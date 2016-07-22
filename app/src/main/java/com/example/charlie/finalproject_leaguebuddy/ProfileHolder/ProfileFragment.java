@@ -36,7 +36,6 @@ public class ProfileFragment extends BaseFragment implements Content_Contract.Vi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.profile_holder_card, container, false);
         mPresenter = new Content_Presenter(this);
         if(getArguments().getBoolean("idMode")==true){
