@@ -101,6 +101,7 @@ public class SummonerLeaderboardFragment extends BaseFragment implements Content
             initializeRow();
         }
 
+
     }
 
     public void sortTable(){
@@ -115,11 +116,13 @@ public class SummonerLeaderboardFragment extends BaseFragment implements Content
     }
 
     public void initializeRow(){
-        sortTable();
+    //    sortTable();
       //  Log.d("RANKED SIZE", PlayerStatsList.size()+"");
         for(int j =0; j < PlayerStatsList.size(); j++){
         final RankedStatsModel rankedStats = PlayerStatsList.get(j);
 Log.d("RANKEDCHECK", rankedStats.getSummonerId()+"");
+Log.d("RANKEDVALID", rankedStats.getChampions().size()+"");
+       if(rankedStats.getChampions().size()>0)
         for (int i=0; i < rankedStats.getChampions().size(); i++){
             if( rankedStats.getChampions().get(i).getId()==0) {
 
@@ -164,6 +167,50 @@ Log.d("RANKEDCHECK", rankedStats.getSummonerId()+"");
                 leaderboard.addView(tableRow);
             }
         }
+     else
+       {
+
+           Log.d("UNRANKED ROW", "ADDED");
+
+           View tableRow = TableLayout.inflate(getContext(), R.layout.summoner_leaderboard_row, null);
+
+           TextView name = (TextView) tableRow.findViewById(R.id.summonerName);
+           name.setText(RealmController.getInstance().getSummoner(rankedStats.getSummonerId()).getName());
+
+           TextView rank = (TextView) tableRow.findViewById(R.id.rank);
+           rank.setText("N/A");
+
+           TextView wins = (TextView) tableRow.findViewById(R.id.wins);
+           wins.setText("N/A");
+
+           TextView losses = (TextView) tableRow.findViewById(R.id.losses);
+           losses.setText("N/A");
+
+           TextView gamesPlayed = (TextView) tableRow.findViewById(R.id.gamesPlayed);
+           gamesPlayed.setText("N/A");
+
+           ImageView img = (ImageView)tableRow.findViewById(R.id.summoner_icon);
+
+           Glide.with(this)
+                   .load(Constants.DDRAGON_IMG_URL + RealmController.getInstance().getSummoner(rankedStats.getSummonerId()).getProfileIconId()+".png")
+                   .dontTransform()
+                   .into(img);
+
+
+           tableRow.setOnClickListener(new View.OnClickListener(){
+
+
+
+               @Override
+               public void onClick(View v) {
+
+                   MainActivity main = (MainActivity) getActivity();
+                   main.SelectItem(2, rankedStats.getSummonerId());
+
+               }
+           });
+           leaderboard.addView(tableRow);
+       }
     }
 
         progress.dismiss();

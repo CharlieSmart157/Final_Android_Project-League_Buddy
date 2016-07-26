@@ -76,8 +76,8 @@ public class ranked_stats_fragment extends BaseFragment  implements Content_Cont
 
     @Override
     public void setRankedStats(RankedStatsModel rankedStats) {
-
         TableLayout table = (TableLayout)view.findViewById(R.id.stats_tableView);
+        if(rankedStats.getChampions().size() > 0){
 
         for (int i=0; i < rankedStats.getChampions().size(); i++){
             if( rankedStats.getChampions().get(i).getId()!=0) {
@@ -118,6 +118,13 @@ public class ranked_stats_fragment extends BaseFragment  implements Content_Cont
                 table.addView(tableRow);
             }
 
+        }
+}
+        else{
+            TextView tableRow = new TextView(getContext());
+            tableRow.setText("No Ranked Data Found for this Season");
+
+            table.addView(tableRow);
         }
         progress.dismiss();
     }

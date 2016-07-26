@@ -72,7 +72,9 @@ public class ProfileFragment extends BaseFragment implements Content_Contract.Vi
          text.setText(summoner.getName());
          ImageView img = (ImageView) view.findViewById(R.id.profileImage);
          TextView text2 =(TextView) view.findViewById(R.id.RankText);
+        if(summoner.getRankedLeague()!=null)
          text2.setText(summoner.getRankTier()+" "+summoner.getRankedLeague().getDivision());
+
          CheckBox watchBox = (CheckBox)view.findViewById(R.id.WatchButton);
          watchBox.setOnClickListener(new View.OnClickListener(){
 

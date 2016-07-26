@@ -20,6 +20,7 @@ import android.view.View;
 import com.example.charlie.finalproject_leaguebuddy.Content.Content_Contract;
 import com.example.charlie.finalproject_leaguebuddy.Content.Content_Presenter;
 import com.example.charlie.finalproject_leaguebuddy.HomePage.HomeFragment;
+import com.example.charlie.finalproject_leaguebuddy.MatchHistory.MatchHistoryFragment;
 import com.example.charlie.finalproject_leaguebuddy.Models.RankedStatsModel;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerMasteryModel;
 import com.example.charlie.finalproject_leaguebuddy.Models.SummonerModel;
@@ -49,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
         mPresenter = new Content_Presenter(this);
 
-
         RealmController.with(this);
-
 
 
         //UI
@@ -76,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Preferences: Default User
 
         sharedpreferences  = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+       // Log.d("Shared Prefs", sharedpreferences.getInt("DefaultID",0)+"");
 
         if(sharedpreferences.getInt("DefaultID",0)==0)
             SelectItem(1);
@@ -185,6 +186,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Log.i("Case", ""+position);
                 getSupportActionBar().setTitle("View Profile");
                 fragment = new ProfilePageFragment();
+                fragment.setRetainInstance(true);
+                args.putInt("id", selectedId);
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+                    this.invalidateOptionsMenu();
+                }
+                break;
+
+            case 3:
+                Log.i("Case", ""+position);
+                getSupportActionBar().setTitle("Match History");
+                fragment = new MatchHistoryFragment();
                 fragment.setRetainInstance(true);
                 args.putInt("id", selectedId);
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){

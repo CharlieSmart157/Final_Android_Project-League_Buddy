@@ -133,8 +133,8 @@ public class ProfilePageFragment extends BaseFragment implements Content_Contrac
         local = false;
         mSwipeRefresher.setRefreshing(false);
         initializeProfileView();
-        //initializeSummonerMastery();
-        //initializeSummonerRankStats();
+        initializeSummonerMastery();
+        initializeSummonerRankStats();
         local = true;
 
     }

@@ -22,7 +22,11 @@ public interface ISummoner_API {
     Observable<SummonerModel> getSummonerByName(@Path("summonerName")String summoner_ID );
     @GET(Constants.SUMMONER_URL_BY_ID_URL + Constants.API_KEY)
     Observable<SummonerModel> getSummonerById(@Path("summonerIds")String summoner_ID );
+    @GET(Constants.SUMMONER_URL_BY_ID_URL + Constants.API_KEY)
+
+    Observable<SummonerModel> getSummonerUnrankedStats(@Path("summonerIds")String summoner_ID );
     @GET(Constants.SUMMONER_RANKED_LEAGUE_URL + Constants.API_KEY)
+
     Observable<SummonerRankedLeague> getSummonerRankedLeague(@Path("summonerIds")String summoner_ID );
     @GET(Constants.SUMMONER_CHAMPION_MASTERY_URL + Constants.API_KEY)
     Observable<List<SummonerMasteryModel>> getSummonerTopMastery(@Path("summonerIds")int summoner_ID);

@@ -56,7 +56,11 @@ public class RankedStatsModel extends RealmObject {
      * The champions
      */
     public void setChampions(RealmList<Champion> champions) {
-        this.champions = champions;
+
+
+       // if(champions!=null)
+            this.champions = champions;
+
     }
 
     /**

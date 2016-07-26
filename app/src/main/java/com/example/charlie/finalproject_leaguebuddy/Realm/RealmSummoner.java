@@ -31,7 +31,7 @@ public class RealmSummoner extends RealmObject {
 
     private Entry rankedLeague;
 
-    private String rankTier;
+    private String rankTier = " ";
 
     private boolean WatchList = false;
 

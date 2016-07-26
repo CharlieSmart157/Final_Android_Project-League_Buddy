@@ -163,6 +163,8 @@ public class Content_Presenter implements Content_Contract.Presenter{
                     @Override
                     public void onError(Throwable e) {
                         Log.i("ERROR Throw",""+e.toString());
+                        mContentView.setSummoner(realmController.getSummoner(id));
+                        //FetchSummonerByIDUnranked(id);
                     }
 
                     @Override
@@ -211,7 +213,7 @@ public class Content_Presenter implements Content_Contract.Presenter{
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.i("onERROR", e+"");
+                        Log.i("MasteryOnERROR", e+"");
                     }
 
                     @Override
@@ -226,6 +228,52 @@ public class Content_Presenter implements Content_Contract.Presenter{
 
     }
 
+    public void downloadRankedStats(final int id){
+        Log.d("FETCHING", id + "");
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapterFactory(new ItemTypeAdapterFactory("" + id)).create();
+
+
+        restapi = new RestAdapter.Builder()
+                .setConverter(new GsonConverter(gson))
+                .setEndpoint(Constants.BASE_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        iSummoner_api = restapi.create(ISummoner_API.class);
+        _subscriptions.add(iSummoner_api.getRankedStatsData(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<RankedStatsModel>() {
+                    @Override
+                    public void onCompleted() {
+                        //Send Results to View
+                        Log.i("onCOMPLETED", "RANK STATS DONE");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.i("onERRORrrrrrrrrss", e + "");
+                        RankedStatsModel emptyStats = new RankedStatsModel();
+                        emptyStats.setSummonerId(id);
+                   //     emptyStats.setChampions(null);
+                        mContentView.setRankedStats(emptyStats);
+
+                    }
+
+                    @Override
+                    public void onNext(RankedStatsModel datum) {
+                        Log.i("DATUM SIZE", datum.getChampions().size() + "");
+                        realmController.addRankedStats(datum);
+                        mContentView.setRankedStats(datum);
+                    }
+                })
+
+
+        );
+    }
+
+
     public void fetchRankedStats(int id){
 
         if(doesRankedDataExist(id)==false) {
@@ -236,45 +284,7 @@ public class Content_Presenter implements Content_Contract.Presenter{
 
     }
 
-public void downloadRankedStats(int id){
-    Log.d("FETCHING", id + "");
 
-    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().registerTypeAdapterFactory(new ItemTypeAdapterFactory("" + id)).create();
-
-
-    restapi = new RestAdapter.Builder()
-            .setConverter(new GsonConverter(gson))
-            .setEndpoint(Constants.BASE_URL)
-            .setLogLevel(RestAdapter.LogLevel.FULL)
-            .build();
-
-    iSummoner_api = restapi.create(ISummoner_API.class);
-    _subscriptions.add(iSummoner_api.getRankedStatsData(id)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe(new Observer<RankedStatsModel>() {
-                @Override
-                public void onCompleted() {
-                    //Send Results to View
-                    Log.i("onCOMPLETED", "RANK STATS DONE");
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Log.i("onERRORrrrrrrrrss", e + "");
-                }
-
-                @Override
-                public void onNext(RankedStatsModel datum) {
-                    Log.i("DATUM SIZE", datum.getChampions().size() + "");
-                    realmController.addRankedStats(datum);
-                    mContentView.setRankedStats(datum);
-                }
-            })
-
-
-    );
-}
 
     @Override
     public void returnSummonerByName(String s){
@@ -299,10 +309,10 @@ public void downloadRankedStats(int id){
 
     @Override
     public boolean doesUserExist(int i){
-        if(RealmController.getInstance().getSummoner(i)!= null)
-      return true;
+     if(RealmController.getInstance().getSummoner(i)!= null)
+       return true;
       else
-       return  false;
+       return false;
     }
 
     @Override
@@ -314,7 +324,7 @@ public void downloadRankedStats(int id){
     }
 
     public boolean doesRankedDataExist(int i){
-        if(RealmController.getInstance().getRankedData(i)!= null)
+        if(realmController.getRankedData(i)!= null)
             return true;
         else
             return  false;
